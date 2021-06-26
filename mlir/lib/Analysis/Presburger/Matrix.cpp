@@ -108,14 +108,14 @@ void Matrix::dump() const { print(llvm::errs()); }
 
 // Remove these - Bourke's tests
 void Matrix::ScaleRowScalar(unsigned targetRow, int64_t scale) {
-  //#pragma clang loop vectorize(disable)
+  #pragma clang loop vectorize(disable)
   for (unsigned i = 0; i < getNumColumns(); i++) {
     data[targetRow * nColumns + i] = data[targetRow * nColumns + i] + scale;
   }
 }
 
 void Matrix::ScaleRowVector(unsigned targetRow, int64_t scale)  {
-  //#pragma clang loop vectorize(enable)
+  #pragma clang loop vectorize(enable)
   for (unsigned i = 0; i < getNumColumns(); i++) {
     data[targetRow * nColumns + i] = data[targetRow * nColumns + i] + scale;
   }
