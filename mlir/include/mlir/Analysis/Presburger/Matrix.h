@@ -73,6 +73,11 @@ public:
   void print(raw_ostream &os) const;
   void dump() const;
 
+  // Remove these - Bourke's tests
+  void ScaleRowScalar(unsigned targetRow, int64_t scale);
+  void ScaleRowVector(unsigned targetRow, int64_t scale);
+
+
 private:
   unsigned nRows, nColumns;
 
