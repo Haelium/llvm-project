@@ -3,7 +3,6 @@
 
 #include "mlir/Analysis/Presburger/Matrix.h"
 
-
 #include <iostream>
 #include "benchmark/benchmark.h"
 #include <thread>
@@ -168,7 +167,7 @@ static void BM_Matrix_addToColumn(benchmark::State& state) {
   }
 }
 BENCHMARK(BM_Matrix_addToColumn);
-
+/*
 void mul_rows_by_const(Matrix& mat, int scaling_const) {
   for (unsigned row = 0; row < mat.getNumRows(); row++) {
     mat.ScaleRow(row, scaling_const);
@@ -185,7 +184,7 @@ static void BM_Matrix_mul_by_const(benchmark::State& state) {
   }
 }
 BENCHMARK(BM_Matrix_mul_by_const);
-
+*/
 
 #define N 128
 #define M 256

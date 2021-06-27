@@ -1,5 +1,5 @@
 set (LIBS
-        MLIRLoopAnalysis
+        MLIRPresburger
         )
 
 add_llvm_tool(benchmark-presburger

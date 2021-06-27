@@ -37,10 +37,10 @@ public:
   static Matrix identity(unsigned dimension);
 
   /// Access the element at the specified row and column.
-  int64_t &at(unsigned row, unsigned column);
-  int64_t at(unsigned row, unsigned column) const;
-  int64_t &operator()(unsigned row, unsigned column);
-  int64_t operator()(unsigned row, unsigned column) const;
+  int16_t &at(unsigned row, unsigned column);
+  int16_t at(unsigned row, unsigned column) const;
+  int16_t &operator()(unsigned row, unsigned column);
+  int16_t operator()(unsigned row, unsigned column) const;
 
   /// Swap the given columns.
   void swapColumns(unsigned column, unsigned otherColumn);
@@ -53,13 +53,13 @@ public:
   unsigned getNumColumns() const;
 
   /// Get an ArrayRef corresponding to the specified row.
-  ArrayRef<int64_t> getRow(unsigned row) const;
+  ArrayRef<int16_t> getRow(unsigned row) const;
 
   /// Add `scale` multiples of the source row to the target row.
-  void addToRow(unsigned sourceRow, unsigned targetRow, int64_t scale);
+  void addToRow(unsigned sourceRow, unsigned targetRow, int16_t scale);
 
   /// Add `scale` multiples of the source column to the target column.
-  void addToColumn(unsigned sourceColumn, unsigned targetColumn, int64_t scale);
+  void addToColumn(unsigned sourceColumn, unsigned targetColumn, int16_t scale);
 
   /// Negate the specified column.
   void negateColumn(unsigned column);
@@ -74,15 +74,16 @@ public:
   void dump() const;
 
   // Remove these - Bourke's tests
-  void ScaleRowScalar(unsigned targetRow, int64_t scale);
-  void ScaleRowVector(unsigned targetRow, int64_t scale);
+  void ScaleRowScalar(unsigned targetRow, int16_t scale);
+  void ScaleRowVector(unsigned targetRow, int16_t scale);
 
 
 private:
   unsigned nRows, nColumns;
 
   /// Stores the data. data.size() is equal to nRows * nColumns.
-  SmallVector<int64_t, 64> data;
+  //SmallVector<int64_t, 64> data;
+  std::vector<int16_t> data;
 };
 
 } // namespace mlir

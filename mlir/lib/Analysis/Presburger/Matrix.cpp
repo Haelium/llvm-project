@@ -24,23 +24,23 @@ Matrix Matrix::identity(unsigned dimension) {
   return matrix;
 }
 
-int64_t &Matrix::at(unsigned row, unsigned column) {
+int16_t &Matrix::at(unsigned row, unsigned column) {
   assert(row < getNumRows() && "Row outside of range");
   assert(column < getNumColumns() && "Column outside of range");
   return data[row * nColumns + column];
 }
 
-int64_t Matrix::at(unsigned row, unsigned column) const {
+int16_t Matrix::at(unsigned row, unsigned column) const {
   assert(row < getNumRows() && "Row outside of range");
   assert(column < getNumColumns() && "Column outside of range");
   return data[row * nColumns + column];
 }
 
-int64_t &Matrix::operator()(unsigned row, unsigned column) {
+int16_t &Matrix::operator()(unsigned row, unsigned column) {
   return at(row, column);
 }
 
-int64_t Matrix::operator()(unsigned row, unsigned column) const {
+int16_t Matrix::operator()(unsigned row, unsigned column) const {
   return at(row, column);
 }
 
@@ -71,11 +71,11 @@ void Matrix::swapColumns(unsigned column, unsigned otherColumn) {
     std::swap(at(row, column), at(row, otherColumn));
 }
 
-ArrayRef<int64_t> Matrix::getRow(unsigned row) const {
+ArrayRef<int16_t> Matrix::getRow(unsigned row) const {
   return {&data[row * nColumns], nColumns};
 }
 
-void Matrix::addToRow(unsigned sourceRow, unsigned targetRow, int64_t scale) {
+void Matrix::addToRow(unsigned sourceRow, unsigned targetRow, int16_t scale) {
   if (scale == 0)
     return;
   for (unsigned col = 0; col < nColumns; ++col)
@@ -84,7 +84,7 @@ void Matrix::addToRow(unsigned sourceRow, unsigned targetRow, int64_t scale) {
 }
 
 void Matrix::addToColumn(unsigned sourceColumn, unsigned targetColumn,
-                         int64_t scale) {
+                         int16_t scale) {
   if (scale == 0)
     return;
   for (unsigned row = 0, e = getNumRows(); row < e; ++row)
@@ -107,14 +107,14 @@ void Matrix::print(raw_ostream &os) const {
 void Matrix::dump() const { print(llvm::errs()); }
 
 // Remove these - Bourke's tests
-void Matrix::ScaleRowScalar(unsigned targetRow, int64_t scale) {
+void Matrix::ScaleRowScalar(unsigned targetRow, int16_t scale) {
   #pragma clang loop vectorize(disable)
   for (unsigned i = 0; i < getNumColumns(); i++) {
     data[targetRow * nColumns + i] = data[targetRow * nColumns + i] + scale;
   }
 }
 
-void Matrix::ScaleRowVector(unsigned targetRow, int64_t scale)  {
+void Matrix::ScaleRowVector(unsigned targetRow, int16_t scale)  {
   #pragma clang loop vectorize(enable)
   for (unsigned i = 0; i < getNumColumns(); i++) {
     data[targetRow * nColumns + i] = data[targetRow * nColumns + i] + scale;
