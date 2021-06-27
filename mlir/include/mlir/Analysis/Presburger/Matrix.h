@@ -18,6 +18,8 @@
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/Support/raw_ostream.h"
 
+#include "mlir/Analysis/Presburger/AlignedAllocator.h"
+
 #include <cassert>
 
 namespace mlir {
@@ -83,7 +85,7 @@ private:
 
   /// Stores the data. data.size() is equal to nRows * nColumns.
   //SmallVector<int64_t, 64> data;
-  std::vector<int16_t> data;
+  std::vector<int16_t, analysis::presburger::AlignedAllocator<int16_t, 64>> data;
 };
 
 } // namespace mlir
