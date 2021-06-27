@@ -137,7 +137,7 @@ Matrix createMatrix(unsigned rows, unsigned columns) {
   Matrix mat(rows, columns);
   for (unsigned row = 0; row < rows; ++row)
     for (unsigned col = 0; col < columns; ++col)
-      mat(row, col) = col == 3 ? 1 : 0;
+      mat(row, col) = row + col;
 
   return mat;
 }
