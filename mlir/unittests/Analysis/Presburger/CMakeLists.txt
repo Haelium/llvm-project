@@ -1,8 +1,7 @@
-add_mlir_unittest(MLIRPresburgerTests
+add_mlir_unittest(MLIRPresburgerMatrixTests
   MatrixTest.cpp
-  SimplexTest.cpp
 )
 
-target_link_libraries(MLIRPresburgerTests
+target_link_libraries(MLIRPresburgerMatrixTests
   PRIVATE MLIRPresburger)
 
