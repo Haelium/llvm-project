@@ -4,3 +4,5 @@ add_mlir_library(MLIRPresburger
   LINK_LIBS PUBLIC
   MLIRIR
   )
+
+target_compile_options(MLIRPresburger PUBLIC -fno-vectorize)

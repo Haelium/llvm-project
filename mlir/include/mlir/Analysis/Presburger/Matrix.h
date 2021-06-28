@@ -24,6 +24,11 @@
 
 namespace mlir {
 
+// We like vectors
+constexpr bool vectorised = false;
+const unsigned MatrixVectorColumns = 16;
+typedef int16_t Vector __attribute__((ext_vector_type(MatrixVectorColumns)));
+
 /// This is a simple class to represent a resizable matrix.
 ///
 /// The data is stored in the form of a vector of vectors.
@@ -76,9 +81,7 @@ public:
   void dump() const;
 
   // Remove these - Bourke's tests
-  void ScaleRowScalar(unsigned targetRow, int16_t scale);
-  void ScaleRowVector(unsigned targetRow, int16_t scale);
-
+  void ScaleRow(unsigned targetRow, int16_t scale);
 
 private:
   unsigned nRows, nColumns;

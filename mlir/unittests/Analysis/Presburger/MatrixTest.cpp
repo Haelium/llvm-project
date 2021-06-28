@@ -89,4 +89,17 @@ TEST(MatrixTest, resizeVertically) {
       EXPECT_EQ(mat(row, col), row >= 3 ? 0 : int(10 * row + col));
 }
 
+TEST(MatrixTest, ScaleRow) {
+  Matrix mat(64, 64);
+  for (unsigned row = 0; row < 64; ++row)
+    for (unsigned col = 0; col < 64; ++col)
+      mat(row, col) = row+col;
+
+  mat.ScaleRow(0, 2);
+  for (unsigned col = 0; col < mat.getNumColumns(); col++) {
+    EXPECT_EQ(mat(0, col), col + 2);
+  }
+
+}
+
 } // namespace mlir

@@ -106,29 +106,17 @@ void Matrix::print(raw_ostream &os) const {
 
 void Matrix::dump() const { print(llvm::errs()); }
 
-// Remove these - Bourke's tests
-void Matrix::ScaleRowScalar(unsigned targetRow, int16_t scale) {
-  #pragma clang loop vectorize(disable)
-  for (unsigned i = 0; i < getNumColumns(); i++) {
-    data[targetRow * nColumns + i] = data[targetRow * nColumns + i] + scale;
+void Matrix::ScaleRow(unsigned targetRow, int16_t scale)  {
+  if (vectorised) {
+    for (int i = 0; i < getNumRows(); i+=16) {
+      *(Vector*)(&data[targetRow * nColumns + i]) = *(Vector*)(&data[targetRow * nColumns + i]) + scale; // + Vector(scale, scale, scale, scale;
+    }
+  } else {
+    for (unsigned i = 0; i < getNumColumns(); i++) {
+      data[targetRow * nColumns + i] = data[targetRow * nColumns + i] + scale;
+    }
   }
 }
-
-void Matrix::ScaleRowVector(unsigned targetRow, int16_t scale)  {
-  #pragma clang loop vectorize(enable)
-  for (unsigned i = 0; i < getNumColumns(); i++) {
-    data[targetRow * nColumns + i] = data[targetRow * nColumns + i] + scale;
-  }
-  /*
-  __m256i scale_m256i = __m256i_set1_i64(scale);
-
-  for (unsigned i = 0; i < getNumColumns()-4; i+=4) {
-    __m256d input = _m256i_loadu_i64(data[targetRow * nColumns + i]);
-    __mm256_storeu_pd(_m256i_mul_i64(), data[targetRow * nColumns + i]);
-  }*/
-}
-
-
 
 
 } // namespace mlir
